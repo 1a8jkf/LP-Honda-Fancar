@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Simulador de Consórcio</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    input[type="range"] {
+      transition: background 0.3s ease;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      appearance: none;
+      height: 1.5rem;
+      width: 1.5rem;
+      background: linear-gradient(to right, #3b82f6, #06b6d4);
+      border-radius: 9999px;
+      cursor: pointer;
+      margin-top: -6px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+    }
+
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+
+    input[type="range"]::-webkit-slider-runnable-track {
+      height: 6px;
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      height: 1.5rem;
+      width: 1.5rem;
+      background: linear-gradient(to right, #3b82f6, #06b6d4);
+      border-radius: 9999px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    input[type="range"]::-moz-range-thumb:hover {
+      transform: scale(1.2);
+    }
+
+    input[type="range"]::-moz-range-track {
+      height: 6px;
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+
+    #resultado {
+      animation: fadeIn 0.4s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-blue-100 via-indigo-100 to-blue-50 min-h-screen p-6 flex items-center justify-center">
+  <div class="max-w-xl w-full bg-white p-8 rounded-3xl shadow-2xl border border-blue-200">
+    <h1 class="text-4xl font-bold mb-8 text-center text-blue-800">Simulador de Consórcio</h1>
+
+    <div class="mb-6">
+      <label class="block mb-3 text-base font-semibold text-gray-700" for="slider">Escolha um valor:</label>
+      <input type="range" id="slider" min="0" max="19" value="0" class="w-full">
+    </div>
+
+    <div id="resultado" class="bg-blue-100 p-5 rounded-xl text-center text-lg font-semibold text-blue-900 shadow transition-all duration-300 ease-in-out">
+      Valor selecionado: R$ 10.000<br>
+      Parcelas: 60x de R$ 200,00<br>
+      Taxa: 5%
+    </div>
+
+    <form class="mt-8 space-y-4">
+      <div>
+        <label class="block mb-1 text-sm font-medium text-gray-700">Nome</label>
+        <input type="text" required class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-400 focus:outline-none transition duration-200">
+      </div>
+      <div>
+        <label class="block mb-1 text-sm font-medium text-gray-700">Email</label>
+        <input type="email" required class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-400 focus:outline-none transition duration-200">
+      </div>
+      <div>
+        <label class="block mb-1 text-sm font-medium text-gray-700">Telefone</label>
+        <input type="tel" required class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-400 focus:outline-none transition duration-200">
+      </div>
+      <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white py-3 rounded-lg hover:from-blue-700 hover:to-cyan-600 transition font-bold shadow-md">Simular</button>
+    </form>
+  </div>
+
+  <script>
+    const valores = [
+      { valor: 10000, parcelas: 60, mensal: 200, taxa: '5%' },
+      { valor: 12000, parcelas: 60, mensal: 220, taxa: '5%' },
+      { valor: 15000, parcelas: 60, mensal: 250, taxa: '5%' },
+      { valor: 17000, parcelas: 60, mensal: 280, taxa: '5%' },
+      { valor: 20000, parcelas: 60, mensal: 300, taxa: '6%' },
+      { valor: 22000, parcelas: 60, mensal: 320, taxa: '6%' },
+      { valor: 25000, parcelas: 60, mensal: 350, taxa: '6%' },
+      { valor: 28000, parcelas: 60, mensal: 380, taxa: '6%' },
+      { valor: 30000, parcelas: 60, mensal: 400, taxa: '7%' },
+      { valor: 32000, parcelas: 60, mensal: 420, taxa: '7%' },
+      { valor: 35000, parcelas: 60, mensal: 450, taxa: '7%' },
+      { valor: 37000, parcelas: 60, mensal: 470, taxa: '7%' },
+      { valor: 40000, parcelas: 60, mensal: 500, taxa: '8%' },
+      { valor: 42000, parcelas: 60, mensal: 520, taxa: '8%' },
+      { valor: 45000, parcelas: 60, mensal: 550, taxa: '8%' },
+      { valor: 48000, parcelas: 60, mensal: 580, taxa: '8%' },
+      { valor: 50000, parcelas: 60, mensal: 600, taxa: '9%' },
+      { valor: 52000, parcelas: 60, mensal: 620, taxa: '9%' },
+      { valor: 55000, parcelas: 60, mensal: 650, taxa: '9%' },
+      { valor: 58000, parcelas: 60, mensal: 680, taxa: '9%' }
+    ];
+
+    const slider = document.getElementById('slider');
+    const resultado = document.getElementById('resultado');
+
+    slider.addEventListener('input', () => {
+      const v = valores[slider.value];
+      resultado.innerHTML = `
+        Valor selecionado: R$ ${v.valor.toLocaleString()}<br>
+        Parcelas: ${v.parcelas}x de R$ ${v.mensal.toFixed(2).replace('.', ',')}<br>
+        Taxa: ${v.taxa}
+      `;
+    });
+  </script>
+</body>
+</html>
